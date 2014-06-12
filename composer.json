@@ -1,8 +1,15 @@
 {
     "repositories":[
         {
-            "type":"git",
-            "url":"https://github.com/osotov/bitrix-composer-module-installer"
+            "type":"package",
+            "package":{
+                "name":"bitrix-module-installer-plugin",
+                "source":{
+                    "type":"git",
+                    "url":"https://github.com/osotov/bitrix-composer-module-installer",
+                    "reference":"master"
+                }
+            }
         }
     ],
     "name":"bitrix_template_module",
