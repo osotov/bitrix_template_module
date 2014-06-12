@@ -1,5 +1,5 @@
 {
-    "name":"bitrix_template_module",
+    "name":"osotov/bitrix_template_module",
     "type": "bitrix-module-installer",
     "version":"1.0.0",
     "require":{
