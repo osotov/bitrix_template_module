@@ -6,7 +6,7 @@
         }
     ],
     "name":"bitrix_template_module",
-    "type": "bitrix-module",
+    "type": "bitrix-module-installer",
     "version":"1.0.0",
     "require":{
         "php":">=5.3.0",
