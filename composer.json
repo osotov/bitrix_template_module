@@ -3,6 +3,6 @@
     "version":"1.0.0",
     "require":{
         "php":">=5.3.0",
-        "osotov/bitrix-module-installer-plugin": "dev-master"
+        "osotov/bitrix-module-installer-plugin": "*"
     }
 }
