@@ -3,7 +3,6 @@
     "type": "bitrix-module-installer",
     "description":"some description",
     "license": "MIT",
-    "version":"v1.0.0",
     "require":{
         "php":">=5.3.0",
         "osotov/bitrix-module-installer-plugin": "v1.0.1"
