@@ -13,7 +13,7 @@ class CustomProjectModule extends \CModule
 
 	var $errors = false;
 
-	public function atlantis()
+	public function CustomProjectModule()
 	{
 		$moduleVersion = array();
 		include(realpath(__DIR__) . '/version.php');
