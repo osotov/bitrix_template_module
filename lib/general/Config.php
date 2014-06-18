@@ -1,11 +1,11 @@
 <?php
-namespace variable_namespase;
+namespace CustomProjectModule;
 
 /**
  * Конфигурация модуля
  *
  * Class Config
- * @package variable_namespase
+ * @package CustomProjectModule
  */
 class Config {
 
