@@ -9,11 +9,11 @@
             "email": "reghan7@gmail.com"
         }
     ],
+    "extra": {
+        "bitrix_module_name": "CustomProjectModule"
+    },
     "require":{
         "php":">=5.3.0",
         "osotov/bitrix-module-installer-plugin": ">=1.0.0"
-    },
-    "extra": {
-        "bitrix_module_name": "CustomProjectModule"
     }
 }
