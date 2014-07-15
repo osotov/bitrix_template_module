@@ -5,7 +5,7 @@ Loc::loadMessages(__FILE__);
 CJSCore::Init(array('jquery'));
 
 global $APPLICATION, $right, $Apply, $REQUEST_METHOD, $RestoreDefaults;
-$moduleId = 'CustomProjectModule';
+$moduleId = 'customprojectmodule';
 $right = $APPLICATION->GetGroupRight($moduleId);
 
 if ($right >= 'R') {

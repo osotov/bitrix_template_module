@@ -3,9 +3,9 @@ use Bitrix\Main\Localization\Loc;
 use Bitrix\Main;
 Loc::loadMessages(__FILE__);
 
-class CustomProjectModule extends \CModule
+class customprojectmodule extends \CModule
 {
-	var $MODULE_ID = 'CustomProjectModule';
+	var $MODULE_ID = 'customprojectmodule';
 	var $MODULE_VERSION;
 	var $MODULE_VERSION_DATE;
 	var $MODULE_NAME;
@@ -13,7 +13,7 @@ class CustomProjectModule extends \CModule
 
 	var $errors = false;
 
-	public function CustomProjectModule()
+	public function customprojectmodule()
 	{
 		$moduleVersion = array();
 		include(realpath(__DIR__) . '/version.php');

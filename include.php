@@ -1,6 +1,6 @@
 <?php
 // Автозагрузка классов и регистрация обработчиков событий
-\Bitrix\Main\Loader::registerAutoLoadClasses('CustomProjectModule', array(
+\Bitrix\Main\Loader::registerAutoLoadClasses('customprojectmodule', array(
 
 ));
 
