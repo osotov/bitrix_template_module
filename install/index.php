@@ -1,94 +1,148 @@
 <?php
+
 use Bitrix\Main\Localization\Loc;
 use Bitrix\Main;
-Loc::loadMessages(__FILE__);
 
+/**
+ * Class customprojectmodule
+ */
 class customprojectmodule extends \CModule
 {
-	var $MODULE_ID = 'customprojectmodule';
-	var $MODULE_VERSION;
-	var $MODULE_VERSION_DATE;
-	var $MODULE_NAME;
-	var $MODULE_DESCRIPTION;
+    /**
+     * @var string
+     */
+    public $MODULE_ID = 'customprojectmodule';
+    /**
+     * @var
+     */
+    public $MODULE_VERSION;
+    /**
+     * @var
+     */
+    public $MODULE_VERSION_DATE;
+    /**
+     * @var string
+     */
+    public $MODULE_NAME;
+    /**
+     * @var string
+     */
+    public $MODULE_DESCRIPTION;
 
-	var $errors = false;
+    /**
+     * @var bool
+     */
+    public $errors = false;
 
-	public function customprojectmodule()
-	{
-		$moduleVersion = array();
-		include(realpath(__DIR__) . '/version.php');
-		$this->MODULE_VERSION = $moduleVersion['VERSION'];
-		$this->MODULE_VERSION_DATE = $moduleVersion['VERSION_DATE'];
-		$this->MODULE_NAME = Loc::getMessage('MODULE_NAME');
-		$this->MODULE_DESCRIPTION = Loc::getMessage('MODULE_DESCRIPTION');
-	}
+    /**
+     * Инициализация модуля
+     */
+    public function customprojectmodule()
+    {
+        Loc::loadMessages(__FILE__);
+        $moduleVersion = array();
+        include(realpath(__DIR__) . '/version.php');
+        $this->MODULE_VERSION = $moduleVersion['VERSION'];
+        $this->MODULE_VERSION_DATE = $moduleVersion['VERSION_DATE'];
+        $this->MODULE_NAME = Loc::getMessage('MODULE_NAME');
+        $this->MODULE_DESCRIPTION = Loc::getMessage('MODULE_DESCRIPTION');
+    }
 
-	public function InstallDB()
-	{
-		global $errors;
+    /**
+     * Регистрация модуля в БД, установка таблиц модуля
+     *
+     * @return bool
+     * @throws Exception
+     */
+    public function InstallDB()
+    {
+        global $errors;
 
-		$errors = false;
+        $errors = false;
 
-		if (! empty($errors))
-		{
-			throw new BitrixApiException(implode('', $errors));
-		}
-		\Bitrix\Main\ModuleManager::registerModule($this->MODULE_ID);
+        // если у модуля есть свои таблицы, сюда следует поместить создание этих таблиц
 
-		return true;
-	}
+        if (!empty($errors)) {
+            throw new \Exception(implode('', $errors));
+        }
+        \Bitrix\Main\ModuleManager::registerModule($this->MODULE_ID);
 
-	public	function UnInstallDB($arParams = Array())
-	{
-		global $errors;
+        return true;
+    }
 
-		COption::RemoveOption($this->getModuleId());
-		\Bitrix\Main\ModuleManager::unRegisterModule($this->MODULE_ID);
+    /**
+     * Удалить модуль из БД, удаление таблиц модуля
+     *
+     * @param array $arParams
+     * @return bool
+     */
+    public function UnInstallDB($arParams = Array())
+    {
+        // если у модуля есть свои таблицы, сюда следует поместить удаление этих таблиц
 
-		return true;
-	}
+        COption::RemoveOption($this->MODULE_ID);
+        \Bitrix\Main\ModuleManager::unRegisterModule($this->MODULE_ID);
 
-	public function InstallFiles($arParams = array())
-	{
-		return true;
-	}
+        return true;
+    }
 
-	public function UnInstallFiles()
-	{
-		return true;
-	}
+    /**
+     * Установка файлов административной страницы и других файлов
+     *
+     * @param array $arParams
+     * @return bool
+     */
+    public function InstallFiles($arParams = array())
+    {
+        // если у модуля есть свои административные страницы и другие файлы,
+        // сюда следует поместить установку этих страниц
+        return true;
+    }
 
-	public function DoInstall()
-	{
-		global $USER, $APPLICATION;
-		if ($USER->IsAdmin())
-		{
-			if (! IsModuleInstalled($this->MODULE_ID))
-			{
-				$this->InstallDB();
-				$this->InstallFiles();
+    /**
+     * Удаление файлов административной страницы и других файлов
+     *
+     * @return bool
+     */
+    public function UnInstallFiles()
+    {
+        // если у модуля есть свои административные страницы и другие файлы,
+        // сюда следует поместить удаление этих страниц
+        return true;
+    }
 
-				$GLOBALS['errors'] = $this->errors;
+    /**
+     * Инициализация установки модуля
+     *
+     * @throws Exception
+     */
+    public function DoInstall()
+    {
+        global $USER, $APPLICATION;
+        if ($USER->IsAdmin()) {
+            if (! \Bitrix\Main\ModuleManager::isModuleInstalled($this->MODULE_ID)) {
+                $this->InstallDB();
+                $this->InstallFiles();
 
-				$APPLICATION->IncludeAdminFile(Loc::getMessage('INSTALL_TITLE'), realpath(__DIR__) . '/step.php');
-			}
-		}
-	}
+                $GLOBALS['errors'] = $this->errors;
 
-	public function DoUninstall()
-	{
-		global $USER, $APPLICATION, $step;
+                $APPLICATION->IncludeAdminFile(Loc::getMessage('INSTALL_TITLE'), realpath(__DIR__) . '/step.php');
+            }
+        }
+    }
 
-		if ($USER->IsAdmin())
-		{
-			$this->UnInstallDB(array());
-			$this->UnInstallFiles();
-			$GLOBALS['errors'] = $this->errors;
-			$APPLICATION->IncludeAdminFile(Loc::getMessage('UNINSTALL_TITLE'), realpath(__DIR__) . '/unstep.php');
-		}
-	}
+    /**
+     * Инициализация удаления модуля
+     */
+    public function DoUninstall()
+    {
+        global $USER, $APPLICATION, $step;
 
-
-
+        if ($USER->IsAdmin()) {
+            $this->UnInstallDB(array());
+            $this->UnInstallFiles();
+            $GLOBALS['errors'] = $this->errors;
+            $APPLICATION->IncludeAdminFile(Loc::getMessage('UNINSTALL_TITLE'), realpath(__DIR__) . '/unstep.php');
+        }
+    }
 }
-
